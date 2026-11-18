@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html,
+body {
+  overflow-x: clip; /* no horizontal page scroll; sticky still works with clip */
+}
+
+body {
+  margin: 0;
+  color: #0f172a;
+  /* Quieter background: less candy-pink, shallower gradients. */
+  background:
+    radial-gradient(900px 520px at 50% 38%, rgb(250 235 238 / 0.45) 0%, transparent 62%),
+    radial-gradient(800px 500px at 8% 0%, rgb(226 236 250 / 0.6) 0%, transparent 62%),
+    radial-gradient(700px 500px at 100% 100%, rgb(230 234 246 / 0.6) 0%, transparent 62%),
+    linear-gradient(180deg, #f5f7fb 0%, #eef1f7 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+/* Fit the 600×560 nephron inside the centre stage on desktop */
+.nl-fit {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+}
+@media (min-width: 1024px) {
+  .nl-stage {
+    container-type: size;
+  }
+  .nl-fit {
+    max-width: none;
+    width: min(100cqw, calc(100cqh * 600 / 560));
+  }
+}
+
+/* Glomerular tuft pulse, amplitude set by pressure */
+
+/* Live endpoint halo on sparklines */
+.nl-live {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nl-live 1.6s ease-out infinite;
+}
+@keyframes nl-live {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nl-tube-anim path {
+    transition: none;
+  }
+  .nl-site,
+  .nl-live {
+    animation: none !important;
+  }
+}
+
+/*
+ * Only the arterioles change calibre, so only they carry a width transition. Putting it on
+ * every tube meant a style recalculation on ~30 paths after every tick, for no visible gain.
+ * The duration is long on purpose: the learner should see the vessel move, not just find it
+ * already moved.
+ */
+.nl-tube-anim path {
+  transition:
+    stroke-width 1500ms cubic-bezier(0.33, 0, 0.2, 1),
+    transform 1500ms cubic-bezier(0.33, 0, 0.2, 1),
+    stroke 900ms ease;
+}
+
+/* Dashed halo: the calibre a vessel would have without the active drug */
+.nl-ghost {
+  transition: stroke-width 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Pulsing ring marking where an active drug acts */
+.nl-site {
+  transform-origin: center;
+  animation: nl-site 2s ease-out infinite;
+}
+@keyframes nl-site {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Range input with filled track */
+.nl-range {
+  appearance: none;
+  height: 22px;
+  background: transparent;
+  cursor: pointer;
+  display: block;
+}
+.nl-range::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #3b82f6 var(--fill, 50%), #dbe4f0 var(--fill, 50%));
+}
+.nl-range::-moz-range-track {
+  height: 5px;
+  border-radius: 999px;
+  background: #dbe4f0;
+}
+.nl-range::-moz-range-progress {
+  height: 5px;
+  border-radius: 999px;
+  background: #3b82f6;
+}
+.nl-range::-webkit-slider-thumb {
+  appearance: none;
+  margin-top: -6.5px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgb(15 23 42 / 0.3);
+  position: relative;
+  z-index: 1;
+}
+.nl-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2563eb;
+  border: 3px solid #fff;
+  box-shadow: 0 1px 4px rgb(15 23 42 / 0.3);
+}
+.nl-range:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Thin scrollbars inside panels */
+.nl-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(148 163 184 / 0.5) transparent;
+}
+
+/* uPlot legend */
+.nl-chart .u-legend {
+  font-size: 12px;
+  text-align: left;
+  margin-top: 4px;
+}
+.nl-chart .u-legend .u-series:first-child {
+  display: none;
+}
+.nl-chart .u-legend th {
+  font-weight: 500;
+  color: #334155;
+}

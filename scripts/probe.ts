@@ -1,0 +1,18 @@
+import { defaultConstants, defaultInputs, solveHaemodynamics, initialState, snapshot } from '../src/model';
+const c = defaultConstants(); const b = defaultInputs();
+const show = (label: string, patch: any) => { const i = { ...b, ...patch }; const h = solveHaemodynamics(i, c); const s = snapshot(initialState(i, c), i, c);
+  console.log(label.padEnd(22), 'GFR', h.gfr.toFixed(1), 'RPF', h.rpf.toFixed(0), 'FF', h.filtrationFraction.toFixed(3), 'Pgc', h.pgc.toFixed(1), 'SNGFR', h.sngfr.toFixed(1), 'eq', h.capillary.equilibrium, 'nfpE', h.capillary.nfpEfferent.toFixed(2), 'piA', h.capillary.piAfferent.toFixed(1), 'Cr', s.creatinine.toFixed(0), 'U', s.urea.toFixed(2), 'eGFR', s.egfr.toFixed(0), 'tgf', h.tgfFactor.toFixed(3), 'myo', h.myogenicFactor.toFixed(3)); };
+show('baseline', {});
+for (const m of [1, 1.5, 2, 3, 4, 6, 8]) show('Re x' + m + ' open', { efferentMult: m, autoregulation: false });
+for (const m of [40, 60, 80, 100, 140, 180, 200]) show('MAP ' + m + ' AR', { map: m });
+for (const m of [60, 80, 140, 180]) show('MAP ' + m + ' open', { map: m, autoregulation: false });
+show('Kf x3 open', { kfMult: 3, autoregulation: false });
+show('PBS 30', { bowmanPressure: 30 });
+show('N 0.5 comp', { nephronsPerKidney: 0.5 });
+show('N 0.5 nocomp', { nephronsPerKidney: 0.5, compensation: false });
+show('Ra x2 open', { afferentMult: 2, autoregulation: false });
+show('Re x0.5 open', { efferentMult: 0.5, autoregulation: false });
+show('prerenal', { map: 65, adh: 4 });
+show('female', { sex: 'female' });
+for (const v of [5, 10, 15, 20, 25]) show('Pv ' + v, { venousPressure: v });
+const t0 = performance.now(); for (let i = 0; i < 50; i++) solveHaemodynamics({ ...b, map: 70 + i }, c); console.log('ms/solve', ((performance.now() - t0) / 50).toFixed(2));
