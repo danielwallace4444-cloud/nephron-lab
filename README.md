@@ -32,6 +32,15 @@ The build is a static site with no backend, so `dist/` can be served by anything
 On Vercel, import the repository and accept the detected Vite settings — build command
 `npm run build`, output directory `dist`.
 
+`vercel.json` sets the response headers: hashed files under `/assets/` are cached for a
+year, icons and the social card for a week, and every response carries
+`X-Content-Type-Options`, `Referrer-Policy` and a `Permissions-Policy` that turns off
+geolocation, microphone and camera. There is deliberately no `X-Frame-Options`, so a
+lecturer can embed the simulator in a virtual learning environment or a slide.
+
+`node scripts/og-image.mjs` regenerates `public/og.png`, the favicons, the apple touch
+icon and `site.webmanifest` from the same kidney glyph used in the app.
+
 `node scripts/artifact-page.mjs` additionally emits `dist/artifact.html`, a version of the
 page without its own `<html>` wrapper, for hosts that supply their own document skeleton.
 
