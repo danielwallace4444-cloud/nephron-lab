@@ -3,10 +3,120 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nephron Lab</title>
+
+    <title>Nephron Lab — Interactive Renal Physiology Simulator for Medical Students</title>
+    <meta
+      name="description"
+      content="Free interactive simulator of kidney physiology. Adjust blood pressure, volume status, hormones and drugs, and watch GFR, eGFR, creatinine, urea and urine respond in real time. Covers prerenal AKI, ACE inhibitors in renal artery stenosis, the triple whammy, SGLT2 inhibitors and diuretics. A teaching model, not for clinical decisions."
+    />
+    <link rel="canonical" href="https://nephron-lab.vercel.app/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#eef1f7" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="author" content="Nephron Lab" />
+
+    <!-- Link previews in WhatsApp, Slack, Teams, Discord and X -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Nephron Lab" />
+    <meta property="og:url" content="https://nephron-lab.vercel.app/" />
+    <meta property="og:title" content="Nephron Lab — Interactive Renal Physiology Simulator" />
+    <meta
+      property="og:description"
+      content="Change the physiology and watch the kidney respond: GFR, eGFR, creatinine, urea and urine over simulated days. Built for medical students."
+    />
+    <meta property="og:image" content="https://nephron-lab.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="The Nephron Lab simulator, showing a nephron diagram with live GFR, eGFR and urine output" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nephron Lab — Interactive Renal Physiology Simulator" />
+    <meta
+      name="twitter:description"
+      content="Change the physiology and watch the kidney respond: GFR, eGFR, creatinine, urea and urine over simulated days. Built for medical students."
+    />
+    <meta name="twitter:image" content="https://nephron-lab.vercel.app/og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Nephron Lab",
+        "url": "https://nephron-lab.vercel.app/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any modern web browser",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "An interactive simulator of renal physiology for medical students. Adjust haemodynamics, volume status, hormones and drugs and watch glomerular filtration, creatinine, urea, eGFR and urine output respond over simulated days.",
+        "educationalLevel": "Undergraduate and postgraduate medical education",
+        "learningResourceType": "Interactive simulation",
+        "audience": { "@type": "EducationalAudience", "educationalRole": "student" },
+        "about": [
+          { "@type": "Thing", "name": "Renal physiology" },
+          { "@type": "Thing", "name": "Glomerular filtration rate" },
+          { "@type": "Thing", "name": "Acute kidney injury" },
+          { "@type": "Thing", "name": "Diuretics" }
+        ]
+      }
+    </script>
+
+    <script type="module" src="/src/main.tsx"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!--
+      The content below is what a crawler (or a visitor without JavaScript) sees. React
+      replaces it the moment the app mounts. It is a plain-language description of the
+      same page, so there is nothing here that a user would not also get — it exists
+      because a single-page app otherwise serves search engines an empty document.
+    -->
+    <div id="root">
+      <main style="max-width: 44rem; margin: 0 auto; padding: 2rem 1.25rem; font-family: system-ui, sans-serif; line-height: 1.6; color: #0f172a">
+        <h1>Nephron Lab: an interactive renal physiology simulator</h1>
+        <p>
+          <strong>Nephron Lab</strong> is a free, browser-based teaching model of how the kidney filters blood. Change the
+          physiology and watch a single nephron respond: glomerular filtration rate, estimated GFR, creatinine, urea, urine
+          output and sodium handling all update over simulated days.
+        </p>
+        <p><em>Illustrative model for teaching. Not patient-specific, and not for clinical decisions.</em></p>
+
+        <h2>What you can change</h2>
+        <ul>
+          <li><strong>Blood flow:</strong> mean arterial pressure, afferent and efferent arteriolar tone, Bowman's space pressure, venous congestion, nephron number, autoregulation</li>
+          <li><strong>Intake:</strong> fluid balance, sodium intake, protein intake</li>
+          <li><strong>Hormones:</strong> angiotensin II, aldosterone, ADH (vasopressin), atrial natriuretic peptide</li>
+          <li><strong>Drugs:</strong> ACE inhibitors and ARBs, NSAIDs, SGLT2 inhibitors, loop diuretics, thiazides, mineralocorticoid receptor antagonists</li>
+        </ul>
+
+        <h2>Clinical scenarios</h2>
+        <ul>
+          <li><strong>Prerenal acute kidney injury</strong> from volume depletion, with a fractional sodium excretion below 1% and a raised urea-to-creatinine ratio</li>
+          <li><strong>NSAIDs in a dehydrated patient</strong>, removing the prostaglandin support that keeps the afferent arteriole open</li>
+          <li><strong>ACE inhibitor in bilateral renal artery stenosis</strong>, where filtration depends on efferent constriction</li>
+          <li><strong>The triple whammy:</strong> ACE inhibitor or ARB, plus a diuretic, plus an NSAID</li>
+          <li><strong>Starting an SGLT2 inhibitor</strong> and the expected early dip in eGFR from tubuloglomerular feedback</li>
+          <li><strong>Nephron loss</strong> with compensatory hyperfiltration</li>
+          <li><strong>Ureteric obstruction</strong> raising Bowman's space pressure</li>
+          <li><strong>Haemorrhage</strong> with hypotension</li>
+        </ul>
+
+        <h2>How it works</h2>
+        <p>
+          Filtration is modelled along the glomerular capillary using the classic single-nephron Starling-force framework, with
+          oncotic pressure from the Landis–Pappenheimer relation. Creatinine and urea are tracked over time, so estimated GFR
+          visibly lags true GFR after an acute change — the reason eGFR misleads in acute kidney injury. Estimated GFR uses the
+          race-free CKD-EPI 2021 creatinine equation.
+        </p>
+        <p>
+          Every parameter carries its unit, range and source, and the model documentation states which values are verified
+          against published figures, which are model choices, and where the model knowingly departs from the literature.
+        </p>
+        <p>
+          <a href="https://github.com/thekidneylab/nephron-lab">Source code and model documentation on GitHub</a>
+        </p>
+        <p><small>Loading the interactive simulator… it needs JavaScript enabled.</small></p>
+      </main>
+    </div>
   </body>
 </html>

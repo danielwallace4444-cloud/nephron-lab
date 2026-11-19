@@ -1,8 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import { Controls } from './components/Controls';
 import { NephronDiagram } from './components/NephronDiagram';
 import { FiltrationCard, GlomerulusStrip, StatCard, UrinePanel, type MetricKey } from './components/StatCards';
-import { TimeChart, type ChartSeries } from './components/TimeChart';
+import type { ChartSeries } from './components/TimeChart';
+
+/** Charts (and uPlot with them) load only when a chart is first opened. */
+const TimeChart = lazy(() => import('./components/TimeChart').then((m) => ({ default: m.TimeChart })));
 import { explain } from './explain';
 import type { ModelInputs, Snapshot } from './model';
 import { SCENARIOS, type Scenario } from './scenarios';
@@ -251,7 +254,9 @@ function ChartDialog({ metric, onClose, trace }: { metric: MetricKey | null; onC
             </div>
           </div>
           <div className="mt-3">
-            <TimeChart title={CHART_META[tab].title} unit={CHART_META[tab].unit} t={t} series={series} />
+            <Suspense fallback={<div className="h-[232px] animate-pulse rounded-xl bg-slate-100" aria-label="Loading chart" />}>
+              <TimeChart title={CHART_META[tab].title} unit={CHART_META[tab].unit} t={t} series={series} />
+            </Suspense>
           </div>
           {tab === 'gfr' && <p className="mt-1 text-xs text-slate-500">eGFR comes from the current creatinine, so after a sudden change it trails true GFR until creatinine settles (days).</p>}
           <details className="mt-3 text-sm">
